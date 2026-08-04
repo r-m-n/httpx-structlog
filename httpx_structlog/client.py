@@ -1,3 +1,4 @@
+import ssl
 import typing
 
 import httpx
@@ -12,7 +13,6 @@ from httpx._config import (
 )
 from httpx._types import (
     CertTypes,
-    VerifyTypes,
 )
 
 from httpx_structlog.transport import (
@@ -24,7 +24,7 @@ from httpx_structlog.transport import (
 class LoggingClient(httpx.Client):
     def _init_transport(
         self,
-        verify: VerifyTypes = True,
+        verify: ssl.SSLContext | str | bool  = True,
         cert: CertTypes | None = None,
         http1: bool = True,
         http2: bool = False,
@@ -51,7 +51,7 @@ class LoggingClient(httpx.Client):
     def _init_proxy_transport(
         self,
         proxy: Proxy,
-        verify: VerifyTypes = True,
+        verify: ssl.SSLContext | str | bool  = True,
         cert: CertTypes | None = None,
         http1: bool = True,
         http2: bool = False,
@@ -72,7 +72,7 @@ class LoggingClient(httpx.Client):
 class AsyncLoggingClient(httpx.AsyncClient):
     def _init_transport(
         self,
-        verify: VerifyTypes = True,
+        verify: ssl.SSLContext | str | bool  = True,
         cert: CertTypes | None = None,
         http1: bool = True,
         http2: bool = False,
@@ -99,7 +99,7 @@ class AsyncLoggingClient(httpx.AsyncClient):
     def _init_proxy_transport(
         self,
         proxy: Proxy,
-        verify: VerifyTypes = True,
+        verify: ssl.SSLContext | str | bool  = True,
         cert: CertTypes | None = None,
         http1: bool = True,
         http2: bool = False,
